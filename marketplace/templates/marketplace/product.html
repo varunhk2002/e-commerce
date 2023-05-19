@@ -1,5 +1,10 @@
 {% extends 'marketplace/layout.html' %}
 
+{% load static %}
+{% block script %}
+    <script src="{% static 'marketplace/product.js' %}"></script>
+{% endblock %}
+
 {% block body %}
 {% for producty in products %}
     <h1>{{ producty.title }}</h1>
