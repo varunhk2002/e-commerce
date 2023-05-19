@@ -1,0 +1,48 @@
+{% extends "marketplace/layout.html" %}
+
+{% block body %}
+{% load static %}
+    <h1 style="text-align: center;">Your Cart</h1>
+    <br>
+    <div class="container">
+        
+        <div class="row">
+            {% for product in products %}
+            <div class="col-4" style="padding: 10px;">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ product.prod_id.title }}</h5>
+                      <h6 class="card-subtitle mb-2 text-muted">{{ product.prod_id.category }}</h6>
+                      <b>Price: ₹ {{ product.prod_id.price }}</b>
+                      <br>
+                      <form action="{% url 'marketplace:product' product.prod_id.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ product.prod_id.id }}" name="prods_id">
+                        <input type="hidden" value="1" name="action">
+                        <input type="submit" class="btn btn-link" value="Remove from cart">
+                      </form>
+                    </div>
+                  </div>
+            </div>
+            {% endfor %}
+            <br>
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags %}
+            <br>
+            <div class="alert alert-primary" role="alert">
+                {{ message.message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+        <br>
+        <div>
+            <a href="{% url 'marketplace:checkout' %}" class="btn btn-info">Proceed to Checkout</a>
+        </div>
+        
+
+    </div>
+    
+{% endblock %}

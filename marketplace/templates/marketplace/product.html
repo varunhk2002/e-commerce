@@ -1,0 +1,47 @@
+{% extends 'marketplace/layout.html' %}
+
+{% block body %}
+{% for producty in products %}
+    <h1>{{ producty.title }}</h1>
+    <br>
+    <img src="{{ producty.img_url }}" style="width: 300px; height: 300px;">
+    <br>
+    <b>Category: {{ producty.category }}</b>
+    <br>
+    <p>{{ producty.description }}</p>
+    <br>
+    <h3><b>Price: ₹ {{ producty.price }}</b></h3>
+    <br>
+    {% if user.is_authenticated %}
+        <form action="{% url 'marketplace:product' producty.id%}" method="post" id="cart_form">
+            {% csrf_token %}
+            <input type="hidden" id="prod_id" value="{{ producty.id }}" name="prods_id">
+            <input type="hidden" id="action" value="0" name="action">
+            <input type="submit" class="btn btn-primary" value="Add to Cart">
+        </form>
+        <br>
+        <form action="{% url 'marketplace:wishlist' %}" method="post" id="wish_form">
+            {% csrf_token %}
+            <input type="hidden" id="prod_id" value="{{ producty.id }}" name="prods_id">
+            <input type="hidden" value="0" name="action">
+            <input type="submit" class="btn btn-primary" value="Add to Wishlist">
+        </form>
+    {% endif %}
+    
+    <br>
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags %}
+    <br>
+    <div class="alert alert-primary" role="alert">
+        {{ message.message }}
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    
+{% endfor %}
+    
+{% endblock %}
+
+

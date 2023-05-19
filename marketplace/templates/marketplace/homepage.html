@@ -1,0 +1,32 @@
+{% extends "marketplace/layout.html" %}
+
+{% block body %}
+{% load static %}
+    <div style="text-align: center;">
+        <h1 class="headings">Welcome to GadgetSphere</h1>
+        <h2 class="headings">The No 1. Marketplace for Electronics</h2>
+        <br>
+        <h3 class="headings">Check out our exciting range!</h3>
+    </div>
+    
+    <br>
+    <div class="container" id="prod_cont" style="text-align: center; align-content: center;">
+        <div class="row d-flex justify-content-center" style="align-items: center;">
+            {% for producty in products %}
+                <a href="{% url 'marketplace:product' producty.id %}">
+                    <div class="col-4" style="padding: 25px;">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="{{ producty.img_url }}" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">{{ producty.title }}</h5>
+                              <p class="card-text">₹ {{ producty.price }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "marketplace/layout.html" %}
+
+{% block body %}
+{% load static %}
+
+<h1 class="headings">Thank you for shopping with GadgetSphere!</h1>
+<br>
+<div>
+    <h3>Your Bill:</h3>
+    <ol>
+        {% for product in products %}
+        <b><li>{{ product.prod_id.title }} - ₹ {{ product.prod_id.price }}</li></b>
+        {% endfor %}
+    </ol>
+    <br>
+    <h3>Total Amount: ₹ {{ totals }}</h3>
+</div>
+
+{% endblock %}
